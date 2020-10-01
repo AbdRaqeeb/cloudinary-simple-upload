@@ -5,7 +5,7 @@ Fast, easy, package to upload files (images or pdf) to cloudinary.
 ### Installation
 
 ```
-npm i cloudinary-file-upload
+npm i cloudinary-simple-upload
 ```
 
 or
