@@ -11,7 +11,7 @@ npm i cloudinary-simple-upload
 or
 
 ```
-yarn add cloudinary-file-upload
+yarn add cloudinary-simple-upload
 ```
 
 #### Basic Usage
