@@ -1,6 +1,6 @@
 {
   "name": "cloudinary-simple-upload",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A package to make uploading images and pdfs to cloudinary easier.",
   "main": "index.js",
   "scripts": {
