@@ -23,7 +23,7 @@ Add your cloudinary cloud_name, api_key and api_secret. Register here <a href="h
 //  Index.js
 const express = require('express');
 const fileUpload = require('express-fileupload');
-const { config } = require('cloudinary-file-upload');
+const {config} = require('cloudinary-simple-upload');
 
 const app = express();
 app.use(express.json({ extended: false }));
