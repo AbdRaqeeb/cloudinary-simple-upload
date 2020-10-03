@@ -41,7 +41,7 @@ app.listen(3300);
 i. Upload a single image
 ```js
 // upload js
-const {uploadImage} = require('cloudinary-file-upload');
+const {uploadImage} = require('cloudinary-simple-upload');
 
 app.post('/upload', async (req, res) => {
     if (!req.files) {
@@ -50,16 +50,22 @@ app.post('/upload', async (req, res) => {
         });
     }
    
-    // The name of the input field (i.e. "newFile") is used to retrieve the uploaded file
-    let newFile = req.files.newFile;
-   
-    // "test" is the name of folder the uploaded image will be stored in cloudinary.
-    const files = await uploadImage(newFile, "test");
-
-   res.status(201).json({
-       msg: 'Success',
-       files
-   });
+    try {
+        // The name of the input field (i.e. "newFile") is used to retrieve the uploaded file
+        let newFile = req.files.newFile;
+       
+        // "test" is the name of folder the uploaded image will be stored in cloudinary.
+        const files = await uploadImage(newFile, "test");
+    
+       res.status(201).json({
+           msg: 'Success',
+           files
+       });
+    } catch (e) {
+        console.log(e);
+        res.status(500).send('Internal server error...');
+    }
+    
 });
 ```
 
@@ -89,8 +95,8 @@ Below is an example of uploaded result
 
 ii. Upload Multiple Images
 ```js
-//upload.js
-const {uploadImages} = require('cloudinary-file-upload');
+//pdf.js
+const {uploadImages} = require('cloudinary-simple-upload');
 
 app.post('/upload', async (req, res) => {
     if (!req.files || Object.keys(req.files).length < 2) {
@@ -98,89 +104,73 @@ app.post('/upload', async (req, res) => {
             msg: 'please upload multiple images'
         });
     }
-    // The name of the input field (i.e. "newFile") is used to retrieve the uploaded files
-    let newFiles = req.files.newFiles;
     
-    // "test" is the name of folder the uploaded image will be stored in cloudinary.
-    const files = await uploadImages(newFiles, "test");
-
-   res.status(201).json({
-       msg: 'Success',
-       files
-   });
+    try {
+         // The name of the input field (i.e. "newFile") is used to retrieve the uploaded files
+            let newFiles = req.files.newFiles;
+            
+            // "test" is the name of folder the uploaded image will be stored in cloudinary.
+            const files = await uploadImages(newFiles, "test");
+        
+           res.status(201).json({
+               msg: 'Success',
+               files
+           });
+    } catch (e) {
+        console.log(e);
+        res.status(500).send('Internal server error');
+    }
+   
 });
 ```
 
 iii. Upload PDF
 ```js
 // upload js
-const {uploadPdf} = require('cloudinary-file-upload');
-
-app.post('/upload', async (req, res) => {
-    if (!req.files) {
-        return res.status(400).json({
-            msg: 'please upload a pdf'
-        });
-    }
-    // The name of the input field (i.e. "newFile") is used to retrieve the uploaded file
-    let newFile = req.files.newFile;
-    
-    // "test" is the name of folder the uploaded image will be stored in cloudinary.
-    const file = await uploadPdf(newFile, "test");
-
-   res.status(201).json({
-       msg: 'Success',
-       file
-   });
-});
+const {uploadPdf} = require('cloudinary-simple-upload');
+...
 ```
 
 iv. Upload multiple pdfs
 ```js
 // upload js
-const {uploadPdfs} = require('cloudinary-file-upload');
-
-app.post('/upload', async (req, res) => {
-   if (!req.files || Object.keys(req.files).length < 2) {
-           return res.status(400).json({
-               msg: 'please upload multiple pdf files'
-           });
-   }
-    // The name of the input field (i.e. "newFile") is used to retrieve the uploaded files
-    let newFiles = req.files.newFiles;
-    
-    // "test" is the name of folder the uploaded image will be stored in cloudinary.
-    const files = await uploadPdfs(newFiles, "test");
-
-   res.status(201).json({
-       msg: 'Success',
-       files
-   });
-});
+const {uploadPdfs} = require('cloudinary-simple-upload');
+...
 ```
 
-v. Upload multiple files of images and pdfs together
+v.  Upload single video
 ```js
 // upload js
-const {uploadFiles} = require('cloudinary-file-upload');
+const {uploadVideo} = require('cloudinary-simple-upload');
+...
+```
 
-app.post('/upload', async (req, res) => {
-   if (!req.files || Object.keys(req.files).length < 2) {
-           return res.status(400).json({
-               msg: 'please upload multiple files'
-           });
-   }
-    // The name of the input field (i.e. "newFile") is used to retrieve the uploaded files
-    let newFiles = req.files.newFiles;
-    
-    // "test" is the name of folder the uploaded image will be stored in cloudinary.
-    const files = await uploadFiles(newFiles, "test");
+vi.  Upload multiple videos
+```js
+// upload js
+const {uploadVideos} = require('cloudinary-simple-upload');
+...
+```
 
-   res.status(201).json({
-       msg: 'Success',
-       files
-   });
-});
+vii.  Upload audio
+```js
+// upload js
+const {uploadAudio} = require('cloudinary-simple-upload');
+...
+```
+
+viii.  Upload multiple audios
+```js
+// upload js
+const {uploadAudios} = require('cloudinary-simple-upload');
+...
+```
+
+ix. Upload multiple files of images, videos, audios and pdfs together
+```js
+// upload js
+const {uploadFiles} = require('cloudinary-simple-upload');
+...
 ```
 
 #### Options
@@ -195,32 +185,3 @@ app.post('/upload', async (req, res) => {
 
 #### Author
 <a href="https://github.com/AbdRaqeeb">Ajao AbdRaqeeb</a>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-[npm-url]: https://www.npmjs.com/package/cloudinary-file-upload
